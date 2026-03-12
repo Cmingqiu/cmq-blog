@@ -72,3 +72,8 @@
 - 环境变量：服务端通过 `process.env.*` 读取；区分 dev/staging/prod（由部署流程提供环境标识）。
 - Provider 配置：GitHub/Google 需要各自的 client id/secret 与统一的 AUTH_SECRET。
 
+## Perf/UX Notes (implementation checkpoint)
+
+- build 输出的 shared First Load JS 约 100KB 级别；仍需在引入真实编辑器/更多组件后持续关注首屏预算。
+- 首页在搜索/标签筛选无结果时提供明确空状态（可操作返回路径通过清空参数实现）。
+

@@ -1,0 +1,51 @@
+:root {
+  color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    'Noto Sans', 'Helvetica Neue', 'Apple Color Emoji', 'Segoe UI Emoji';
+  line-height: 1.5;
+  padding: 16px;
+}
+
+html[data-theme='light'] body {
+  background: #ffffff;
+  color: #111827;
+}
+
+html[data-theme='dark'] body {
+  background: #0b1220;
+  color: #e5e7eb;
+}
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+pre {
+  padding: 12px;
+  overflow: auto;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme='dark'] pre {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+}
+
+a {
+  color: inherit;
+}
+
