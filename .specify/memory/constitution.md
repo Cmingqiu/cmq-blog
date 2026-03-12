@@ -1,7 +1,7 @@
 <!--
 Sync Impact Report
 
-- Version change: N/A (template) → 1.0.0
+- Version change: 1.0.0 → 1.1.0
 - Modified principles:
   - Template placeholder (Principle 1) → 质量与可维护性优先
   - Template placeholder (Principle 2) → 单元测试强制（NON-NEGOTIABLE）
@@ -11,8 +11,12 @@ Sync Impact Report
 - Added sections:
   - 性能与体验标准
   - 开发流程与质量门禁
+- Added requirements:
+  - UI 技术栈与规范：TailwindCSS + shadcn/ui（neutral 基调，拒绝蓝绿主色），遵循 Web Interface Guidelines
 - Removed sections: None
 - Templates requiring updates:
+  - ✅ D:\my_test\cmq-blog\.specify\templates\plan-template.md
+  - ✅ D:\my_test\cmq-blog\.specify\templates\spec-template.md
   - ✅ D:\my_test\cmq-blog\.specify\templates\tasks-template.md
   - ✅ D:\my_test\cmq-blog\.cursor\commands\speckit.tasks.md
 - Follow-up TODOs: None
@@ -57,6 +61,10 @@ Sync Impact Report
 - **性能**：首屏加载 \(<= 3s\) 作为硬性指标；相关改动必须在验收标准中体现可量化指标。
 - **用户体验**：默认流程简洁直观；错误提示必须可理解并指向可操作的下一步。
 - **回归**：涉及性能/体验的改动必须具备可重复的回归验证方式（自动化优先，其次为明确的手工步骤）。
+- **UI 技术栈与设计规范（NON-NEGOTIABLE）**：
+  - UI 必须使用 TailwindCSS + shadcn/ui 作为默认方案，保证一致性与可扩展性。
+  - 视觉风格以 **neutral** 为基调，拒绝蓝/绿作为主色调（可在细节处使用中性色层级与对比）。
+  - 必须遵循 Web Interface Guidelines（可访问性、focus-visible、表单规范、URL 状态同步、暗黑模式等）。
 
 ## 开发流程与质量门禁
 
@@ -82,4 +90,4 @@ Sync Impact Report
   - UX 是否有清晰的用户路径与错误处理
   - 性能预算是否纳入成功标准与验证步骤
 
-**Version**: 1.0.0 | **Ratified**: 2026-03-12 | **Last Amended**: 2026-03-12
+**Version**: 1.1.0 | **Ratified**: 2026-03-12 | **Last Amended**: 2026-03-12

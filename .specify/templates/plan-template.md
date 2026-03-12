@@ -33,6 +33,12 @@
 
 [Gates determined based on constitution file]
 
+<!--
+  Constitution alignment (UI):
+  - UI MUST use TailwindCSS + shadcn/ui by default (neutral base, avoid blue/green primary look)
+  - Must follow Web Interface Guidelines (a11y, focus-visible, form semantics, URL state, dark mode)
+-->
+
 ## Project Structure
 
 ### Documentation (this feature)

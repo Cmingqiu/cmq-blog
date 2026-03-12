@@ -162,6 +162,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
 - [ ] TXXX Security hardening
 - [ ] TXXX Run quickstart.md validation
+- [ ] TXXX UI pass: ensure TailwindCSS + shadcn/ui best practices (no inline styles, reusable components), Web Interface Guidelines compliance (focus-visible, labels, aria-live, etc.)
 
 ---
 

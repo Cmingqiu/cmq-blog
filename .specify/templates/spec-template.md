@@ -114,3 +114,9 @@
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+
+<!--
+  Constitution alignment (UI):
+  - UI MUST use TailwindCSS + shadcn/ui by default (neutral base, avoid blue/green primary look)
+  - Must follow Web Interface Guidelines for accessibility & UX
+-->
