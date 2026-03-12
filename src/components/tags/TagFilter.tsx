@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
+import { Button } from '@/components/ui/button'
 
 export function TagFilter({ tags }: { tags: string[] }) {
   const router = useRouter()
@@ -15,19 +16,20 @@ export function TagFilter({ tags }: { tags: string[] }) {
   }
 
   return (
-    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-      <button type="button" onClick={() => setTag('')} disabled={!current}>
+    <div className="flex flex-wrap gap-2">
+      <Button type="button" variant="outline" onClick={() => setTag('')} disabled={!current}>
         全部
-      </button>
+      </Button>
       {tags.map((t) => (
-        <button
+        <Button
           key={t}
           type="button"
+          variant={current === t ? 'default' : 'outline'}
           onClick={() => setTag(t)}
-          disabled={current === t}
+          aria-pressed={current === t}
         >
           {t}
-        </button>
+        </Button>
       ))}
     </div>
   )

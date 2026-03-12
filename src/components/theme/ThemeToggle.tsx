@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Moon, Sun } from 'lucide-react'
 import { normalizeThemePreference, serializeThemeCookie, type ThemePreference } from '@/lib/theme/preference'
+import { Button } from '@/components/ui/button'
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<ThemePreference>('light')
@@ -19,9 +21,15 @@ export function ThemeToggle() {
   }
 
   return (
-    <button type="button" onClick={toggle}>
-      {theme === 'dark' ? '切换到明亮' : '切换到暗黑'}
-    </button>
+    <Button
+      type="button"
+      variant="outline"
+      size="icon"
+      onClick={toggle}
+      aria-label={theme === 'dark' ? '切换到明亮主题' : '切换到暗黑主题'}
+    >
+      {theme === 'dark' ? <Sun /> : <Moon />}
+    </Button>
   )
 }
 

@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { SignInButtons } from '@/components/auth/SignInButtons'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 type Comment = {
   id: string
@@ -26,7 +29,7 @@ export function Comments({ postId }: { postId: string }) {
   }, [postId])
 
   async function submit() {
-    setStatus('提交中...')
+    setStatus('提交中…')
     const res = await fetch('/api/comments', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -45,32 +48,49 @@ export function Comments({ postId }: { postId: string }) {
   }
 
   return (
-    <section style={{ marginTop: 24 }}>
-      <h2>评论</h2>
-      <SignInButtons />
-      <div style={{ marginTop: 12 }}>
-        <textarea
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          placeholder="写下你的评论（需登录）"
-          style={{ width: '100%', height: 100, padding: 8 }}
-        />
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <button type="button" onClick={submit}>
-            发表评论
-          </button>
-          {status ? <span>{status}</span> : null}
-        </div>
-      </div>
+    <section className="mt-8 space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">评论</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <SignInButtons />
+          <div className="space-y-2">
+            <Textarea
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+              name="comment"
+              autoComplete="off"
+              aria-label="评论内容"
+              placeholder="写下你的评论（需登录）…"
+              className="min-h-[96px]"
+            />
+            <div className="flex items-center gap-2">
+              <Button type="button" onClick={submit}>
+                发表评论
+              </Button>
+              {status ? (
+                <span className="text-sm text-muted-foreground" aria-live="polite">
+                  {status}
+                </span>
+              ) : null}
+            </div>
+          </div>
 
-      <ul style={{ marginTop: 12 }}>
-        {comments.map((c) => (
-          <li key={c.id}>
-            <div>{c.body}</div>
-            <small>{c.createdAt}</small>
-          </li>
-        ))}
-      </ul>
+          {comments.length === 0 ? (
+            <p className="text-sm text-muted-foreground">暂无评论</p>
+          ) : (
+            <ul className="space-y-3">
+              {comments.map((c) => (
+                <li key={c.id} className="rounded-lg border bg-card p-3">
+                  <div className="break-words text-sm">{c.body}</div>
+                  <div className="mt-2 text-xs text-muted-foreground">{c.createdAt}</div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </CardContent>
+      </Card>
     </section>
   )
 }

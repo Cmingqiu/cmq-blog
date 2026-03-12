@@ -2,6 +2,8 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 export function SearchBox() {
   const router = useRouter()
@@ -16,16 +18,18 @@ export function SearchBox() {
   }
 
   return (
-    <div style={{ display: 'flex', gap: 8 }}>
-      <input
+    <div className="flex gap-2">
+      <Input
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="搜索"
-        style={{ flex: 1, padding: 8 }}
+        name="q"
+        autoComplete="off"
+        aria-label="搜索文章"
+        placeholder="搜索文章…"
       />
-      <button type="button" onClick={submit}>
+      <Button type="button" variant="secondary" onClick={submit}>
         搜索
-      </button>
+      </Button>
     </div>
   )
 }

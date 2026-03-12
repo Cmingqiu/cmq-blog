@@ -16,8 +16,14 @@ export default async function RootLayout({
 }>) {
   const theme = normalizeThemePreference((await cookies()).get('theme')?.value)
   return (
-    <html lang="zh-CN" data-theme={theme}>
+    <html lang="zh-CN" className={theme === 'dark' ? 'dark' : undefined}>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-background focus:px-3 focus:py-2 focus:text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          跳转到主要内容
+        </a>
         <Providers>{children}</Providers>
       </body>
     </html>

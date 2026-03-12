@@ -1,6 +1,7 @@
 'use client'
 
 import { signIn, signOut, useSession } from 'next-auth/react'
+import { Button } from '@/components/ui/button'
 
 export function SignInButtons() {
   const { data: session, status } = useSession()
@@ -9,23 +10,25 @@ export function SignInButtons() {
 
   if (session) {
     return (
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <span>{session.user?.name || session.user?.email}</span>
-        <button type="button" onClick={() => signOut()}>
+      <div className="flex items-center gap-2">
+        <span className="min-w-0 truncate text-sm text-muted-foreground">
+          {session.user?.name || session.user?.email}
+        </span>
+        <Button type="button" variant="outline" onClick={() => signOut()}>
           退出
-        </button>
+        </Button>
       </div>
     )
   }
 
   return (
-    <div style={{ display: 'flex', gap: 8 }}>
-      <button type="button" onClick={() => signIn('github')}>
+    <div className="flex flex-wrap gap-2">
+      <Button type="button" variant="outline" onClick={() => signIn('github')}>
         GitHub 登录
-      </button>
-      <button type="button" onClick={() => signIn('google')}>
+      </Button>
+      <Button type="button" variant="outline" onClick={() => signIn('google')}>
         Google 登录
-      </button>
+      </Button>
     </div>
   )
 }
