@@ -4,6 +4,19 @@ dist/
 build/
 coverage/
 
+.turbo/
+.vercel/
+
+# SQLite / local data
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.sqlite-journal
+*.wal
+*.shm
+
 .env
 .env.*.local
 .env.local
@@ -12,6 +25,15 @@ coverage/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Editor / OS
+.vscode/
+.idea/
 
 .DS_Store
 Thumbs.db
