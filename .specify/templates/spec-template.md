@@ -80,6 +80,7 @@
 <!--
   ACTION REQUIRED: The content in this section represents placeholders.
   Fill them out with the right functional requirements.
+  Constitution alignment: Every implemented requirement MUST be covered by unit tests.
 -->
 
 ### Functional Requirements

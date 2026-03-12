@@ -1,50 +1,85 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+- Version change: N/A (template) → 1.0.0
+- Modified principles:
+  - Template placeholder (Principle 1) → 质量与可维护性优先
+  - Template placeholder (Principle 2) → 单元测试强制（NON-NEGOTIABLE）
+  - Template placeholder (Principle 3) → 简洁直观的用户体验
+  - Template placeholder (Principle 4) → 性能预算：首屏加载 ≤ 3 秒
+  - Template placeholder (Principle 5) → 小步变更与可回退
+- Added sections:
+  - 性能与体验标准
+  - 开发流程与质量门禁
+- Removed sections: None
+- Templates requiring updates:
+  - ✅ D:\my_test\cmq-blog\.specify\templates\tasks-template.md
+  - ✅ D:\my_test\cmq-blog\.cursor\commands\speckit.tasks.md
+- Follow-up TODOs: None
+-->
+
+# CMQ Blog CMS Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### 质量与可维护性优先
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+- 每次变更必须保持代码可读、可测试、可维护；拒绝“临时凑合”的实现。
+- 复杂度必须有明确必要性与替代方案对比；无明确收益的复杂抽象一律禁止。
+- 任何新增/修改的逻辑都必须有对应单元测试覆盖（见下一条原则）。
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### 单元测试强制（NON-NEGOTIABLE）
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- 所有功能变更必须包含单元测试：新增功能必须新增测试；修复缺陷必须先补“能复现的失败用例”。
+- 测试必须可重复、可独立运行；禁止依赖不稳定外部资源（网络/真实第三方服务/真实生产数据）。
+- 合并门禁：单元测试必须通过；若无法补测，必须在设计/实现阶段先拆分为可测的单元。
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### 简洁直观的用户体验
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- 交互与信息架构优先“少即是多”：默认路径最短、文案清晰、状态可见、错误可恢复。
+- 管理端（CMS）界面必须以内容编辑效率为中心，避免不必要的配置项与分散注意力的 UI。
+- 可用性问题（例如容易误操作、反馈不及时、信息不透明）视为缺陷处理。
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### 性能预算：首屏加载 ≤ 3 秒
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- 首屏（关键路径页面）在常见网络/设备条件下必须满足 \(<= 3s\) 的加载预算；任何超标必须有优化计划与验收指标。
+- 优先优化影响首屏的资源：关键渲染路径、体积、缓存策略、图片与字体加载、SSR/CSR 策略（按项目实际）。
+- 不得以牺牲可维护性换取短期性能；性能优化必须可回归验证。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### 小步变更与可回退
+
+- 变更应尽量小、可审查、可回滚；大改必须拆分为多个可独立验证的提交/PR。
+- 引入行为变化时必须更新对应文档/验收标准，并提供迁移或回退策略（若适用）。
+- 任何跨模块/跨层影响必须在评审中明确指出并附带验证方式。
+
+## 性能与体验标准
+
+- **性能**：首屏加载 \(<= 3s\) 作为硬性指标；相关改动必须在验收标准中体现可量化指标。
+- **用户体验**：默认流程简洁直观；错误提示必须可理解并指向可操作的下一步。
+- **回归**：涉及性能/体验的改动必须具备可重复的回归验证方式（自动化优先，其次为明确的手工步骤）。
+
+## 开发流程与质量门禁
+
+- **单元测试门禁**：任何功能变更都必须带单元测试，并在 CI 中通过。
+- **缺陷修复门禁**：必须先增加能复现问题的测试用例，再修复实现，防止回归。
+- **评审门禁**：PR 必须说明变更目的、影响范围、测试方式（含新增测试/用例说明）与性能影响（若涉及首屏关键路径）。
+- **性能回归门禁**：若变更可能影响首屏加载，必须提供对比与结论（指标、截图或自动化报告，按项目现有方式）。
 
 ## Governance
 <!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+本宪章对项目的所有规范、模板与工作流具有最高优先级；与宪章冲突的内容必须更新以对齐。
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- **修订流程**：
+  - 任何修订必须通过 PR 进行，且在 PR 描述中明确“变更点 + 理由 + 影响范围”。
+  - 修订涉及原则/门禁变更时，必须同步更新相关模板与命令文档（例如 `.specify/templates/*`、`.cursor/commands/*`）。
+- **版本策略（SemVer）**：
+  - **MAJOR**：原则/门禁的重大更改（可能破坏既有工作流或降低/提高强制要求）。
+  - **MINOR**：新增原则/新增强制章节或实质性扩展强制要求。
+  - **PATCH**：措辞澄清、示例完善、拼写与格式修正，不改变语义门禁。
+- **合规检查**：所有计划/规格/任务输出在生成时与评审时都必须执行“Constitution Check”，至少覆盖：
+  - 单元测试是否被纳入任务与验收
+  - UX 是否有清晰的用户路径与错误处理
+  - 性能预算是否纳入成功标准与验证步骤
+
+**Version**: 1.0.0 | **Ratified**: 2026-03-12 | **Last Amended**: 2026-03-12
