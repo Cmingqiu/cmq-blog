@@ -1,4 +1,4 @@
----
+﻿---
 description: Project Development Guidelines
 globs: ["**/*"]
 alwaysApply: true
@@ -9,6 +9,8 @@ Auto-generated from all feature plans. Last updated: 2026-03-12
 
 ## Active Technologies
 - SQLite（本地文件数据库） (001-blog-cms)
+- TypeScript (Node.js LTS)，Next.js 15，React 19 + Next.js App Router、React、TailwindCSS、better-sqlite3、`react-markdown` + `remark-gfm`、计划引入的 Markdown 富文本编辑库（如 `@uiw/react-md-editor`）、shadcn/ui 组件体系（按宪章要求逐步引入或复用现有包装） (002-article-toc-editor)
+- 本地 SQLite 数据库，经由 `better-sqlite3` 访问 (002-article-toc-editor)
 
 - TypeScript（Node.js LTS；具体版本在实现阶段锁定） + Next.js App Router（版本在实现阶段锁定；默认不绑定特定 bundler） (001-blog-cms)
 
@@ -28,6 +30,7 @@ npm test; npm run lint
 TypeScript（Node.js LTS；具体版本在实现阶段锁定）: Follow standard conventions
 
 ## Recent Changes
+- 002-article-toc-editor: Added TypeScript (Node.js LTS)，Next.js 15，React 19 + Next.js App Router、React、TailwindCSS、better-sqlite3、`react-markdown` + `remark-gfm`、计划引入的 Markdown 富文本编辑库（如 `@uiw/react-md-editor`）、shadcn/ui 组件体系（按宪章要求逐步引入或复用现有包装）
 - 001-blog-cms: Added TypeScript（Node.js LTS；具体版本在实现阶段锁定） + Next.js App Router（版本在实现阶段锁定；默认不绑定特定 bundler）
 
 <!-- MANUAL ADDITIONS START -->
