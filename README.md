@@ -48,6 +48,7 @@
   - Vitest（单元测试、少量 integration 测试）
   - ESLint 9（Flat config，`eslint.config.mjs`）
   - GitHub Actions CI：`npm test` + `npm run lint` + `npm run build`
+- **文章目录与写作页**（`specs/002-article-toc-editor`）：阅读页右侧 TOC、写作页 Markdown 编辑器与预览；依赖见 `package.json`（含可选 `@uiw/react-md-editor`）
 - **其他**
   - Node.js 20+
   - 自建服务器部署（非 Vercel）

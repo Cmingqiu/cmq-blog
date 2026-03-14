@@ -10,7 +10,7 @@ describe('db migrate', () => {
     const row = db
       .prepare('SELECT version FROM migrations ORDER BY version DESC LIMIT 1')
       .get() as { version: number } | undefined
-    expect(row?.version).toBe(1)
+    expect(row?.version).toBe(2)
   })
 })
 

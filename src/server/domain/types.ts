@@ -8,6 +8,7 @@ export type IdentityProvider = 'github' | 'google' | 'other'
 export interface Post {
   id: string
   title: string
+  slug: string | null
   bodyMarkdown: string
   status: PostStatus
   publishedAt?: ISODateTimeString | null

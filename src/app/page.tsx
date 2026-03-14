@@ -61,7 +61,7 @@ export default async function HomePage({
               {posts.map((p) => (
                 <li key={p.id} className="py-3">
                   <Link
-                    href={`/posts/${p.id}`}
+                    href={`/posts/${p.slug ?? p.id}`}
                     className="block min-w-0 truncate text-sm font-medium hover:underline"
                   >
                     {p.title || '(无标题)'}

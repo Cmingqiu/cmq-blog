@@ -21,9 +21,16 @@ export function migrate(db: Database.Database) {
     )
   }
 
-  db.prepare('INSERT INTO migrations (version, applied_at) VALUES (?, ?)').run(
-    SCHEMA_VERSION,
-    nowIso(),
-  )
+  if (current < 2) {
+    db.exec(`
+      ALTER TABLE posts ADD COLUMN slug TEXT;
+      UPDATE posts SET slug = id WHERE slug IS NULL;
+      CREATE UNIQUE INDEX IF NOT EXISTS idx_posts_slug ON posts(slug) WHERE slug IS NOT NULL;
+    `)
+    db.prepare('INSERT INTO migrations (version, applied_at) VALUES (?, ?)').run(
+      2,
+      nowIso(),
+    )
+  }
 }
 

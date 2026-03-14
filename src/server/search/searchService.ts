@@ -5,6 +5,7 @@ import { normalizeQuery, normalizeTag } from './query'
 type DbPostRow = {
   id: string
   title: string
+  slug: string | null
   body_markdown: string
   status: 'draft' | 'published'
   published_at: string | null
@@ -16,6 +17,7 @@ function mapPost(row: DbPostRow): Post {
   return {
     id: row.id,
     title: row.title,
+    slug: row.slug,
     bodyMarkdown: row.body_markdown,
     status: row.status,
     publishedAt: row.published_at,
@@ -36,7 +38,7 @@ export class SearchService {
     const rows = this.db
       .prepare(
         `
-        SELECT p.id, p.title, p.body_markdown, p.status, p.published_at, p.created_at, p.updated_at
+        SELECT p.id, p.title, p.slug, p.body_markdown, p.status, p.published_at, p.created_at, p.updated_at
         FROM posts p
         ${tag ? 'JOIN post_tags pt ON pt.post_id = p.id JOIN tags t ON t.id = pt.tag_id' : ''}
         WHERE p.status = 'published'
