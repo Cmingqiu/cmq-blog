@@ -21,7 +21,7 @@ function mapPost(row: DbPostRow): Post {
   return {
     id: row.id,
     title: row.title,
-    slug: row.slug,
+    slug: row.slug ?? row.id,
     bodyMarkdown: row.body_markdown,
     status: row.status,
     publishedAt: row.published_at,

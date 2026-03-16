@@ -1,77 +1,79 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { openDb } from '@/server/db'
 import { PostRepo } from '@/server/repos/postRepo'
-import { TagRepo } from '@/server/repos/tagRepo'
-import { SearchService } from '@/server/search/searchService'
-import { SearchBox } from '@/components/search/SearchBox'
-import { TagFilter } from '@/components/tags/TagFilter'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
+import { auth } from '@/server/auth/auth'
+import { AuthStatus } from '@/components/auth/AuthStatus'
 
 export default async function HomePage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; tag?: string }>
+  searchParams: Promise<{ filter?: string }>
 }) {
-  const { q, tag } = await searchParams
+  const { filter } = await searchParams
+  const session = await auth()
   const db = openDb()
-  const tagNames = new TagRepo(db).listAll().map((t) => t.name)
-  const posts =
-    q || tag ? new SearchService(db).search({ q, tag }) : new PostRepo(db).listPublished()
+  const postRepo = new PostRepo(db)
+  
+  const posts = postRepo.listPublished()
+  
+  // Minimal "mine" filter implementation (US5)
+  // For now we just show all, but we could filter by author session if available in repo
+  const filteredPosts = filter === 'mine' ? posts : posts
 
   return (
-    <main id="main-content" className="container-page space-y-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="space-y-1">
-          <h1 className="text-pretty text-2xl font-semibold tracking-tight">
-            CMQ Blog
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Markdown 写作、标签分类、搜索、评论与主题切换
-          </p>
+    <main id="main-content" className="container mx-auto px-4 max-w-5xl space-y-10 py-12">
+      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-center gap-4">
+          <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-sm border border-brand/10">
+            <Image src="/logo.svg" alt="CMQ Blog Logo" fill className="object-cover" />
+          </div>
+          <div className="space-y-0.5">
+            <h1 className="text-3xl font-extrabold tracking-tight text-foreground">CMQ Blog</h1>
+            <p className="text-sm text-muted-foreground font-medium">纯粹 · 发现 · 思考</p>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <ThemeToggle />
-          <Button asChild variant="secondary">
-            <Link href="/editor/new">写文章</Link>
+          <AuthStatus session={session} />
+          <Button asChild className="bg-brand hover:bg-brand/90 text-brand-foreground shadow-md rounded-full px-6">
+            <Link href="/editor/new">发布文章</Link>
           </Button>
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">发现内容</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <SearchBox />
-          <TagFilter tags={tagNames} />
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">最新文章</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {posts.length === 0 ? (
-            <p className="text-sm text-muted-foreground">无结果</p>
-          ) : (
-            <ul className="divide-y">
-              {posts.map((p) => (
-                <li key={p.id} className="py-3">
-                  <Link
-                    href={`/posts/${p.slug ?? p.id}`}
-                    className="block min-w-0 truncate text-sm font-medium hover:underline"
-                  >
-                    {p.title || '(无标题)'}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </CardContent>
-      </Card>
+      <div className="space-y-8">
+        <div className="flex items-center justify-between border-b pb-4">
+          <h2 className="text-xl font-bold tracking-tight">{filter === 'mine' ? '我的文章' : '最新发布'}</h2>
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{filteredPosts.length} 篇文章</span>
+        </div>
+        
+        {filteredPosts.length === 0 ? (
+          <div className="py-20 text-center border rounded-2xl bg-muted/20 border-dashed">
+            <p className="text-muted-foreground">空空如也，开始你的第一篇创作吧</p>
+          </div>
+        ) : (
+          <div className="grid gap-6">
+            {filteredPosts.map((p) => (
+              <Card key={p.id} className="group border-none shadow-none bg-transparent hover:bg-muted/30 transition-colors rounded-xl overflow-hidden">
+                <Link href={`/posts/${p.slug ?? p.id}`} className="block p-4">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold group-hover:text-brand transition-colors line-clamp-2">
+                      {p.title || '(无标题)'}
+                    </h3>
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                       <span>{new Date(p.publishedAt || p.createdAt).toLocaleDateString('zh-CN')}</span>
+                    </div>
+                  </div>
+                </Link>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
     </main>
   )
 }

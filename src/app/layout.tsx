@@ -5,8 +5,12 @@ import { normalizeThemePreference } from '@/lib/theme/preference'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
-  title: 'CMQ Blog',
-  description: 'Personal blog CMS',
+  title: 'CMQ Blog - 纯粹的个人博客',
+  description: '一个专注于内容与体验的纯粹个人博客平台',
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/logo.svg',
+  },
 }
 
 export default async function RootLayout({

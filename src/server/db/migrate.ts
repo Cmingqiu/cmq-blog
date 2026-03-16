@@ -32,5 +32,29 @@ export function migrate(db: Database.Database) {
       nowIso(),
     )
   }
+
+  if (current < 3) {
+    // Ensure slug column exists (idempotent add)
+    try {
+      db.exec('ALTER TABLE posts ADD COLUMN slug TEXT;')
+    } catch {
+      // Ignore if column already exists
+    }
+
+    // Populate slug if null
+    db.exec(`
+      UPDATE posts SET slug = id WHERE slug IS NULL;
+    `)
+
+    // Ensure unique index
+    db.exec(`
+      CREATE UNIQUE INDEX IF NOT EXISTS idx_posts_slug ON posts(slug) WHERE slug IS NOT NULL;
+    `)
+
+    db.prepare('INSERT INTO migrations (version, applied_at) VALUES (?, ?)').run(
+      3,
+      nowIso(),
+    )
+  }
 }
 

@@ -1,4 +1,4 @@
-export const SCHEMA_VERSION = 2
+export const SCHEMA_VERSION = 3
 
 export const SCHEMA_SQL = `
 CREATE TABLE IF NOT EXISTS migrations (
@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS posts (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   body_markdown TEXT NOT NULL,
+  slug TEXT,
   status TEXT NOT NULL,
   published_at TEXT,
   created_at TEXT NOT NULL,
